@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- ============================================================= -->
+<project name="BLAST Filter Tool" default="help" basedir=".">
+
+<property file="${basedir}/src/bzh/plealog/bioinfo/bft/version.properties"/>
+
+<property name="pbc.libName"    value="${prg.name}" />
+<property name="pbc.LibVersion" value="${prg.version}" />
+
+<property name="compile.optimize" value="on" />
+<property name="compile.debug"    value="off" />
+
+<property name="src"     value="${basedir}/src" />
+<property name="jar"     value="${basedir}/jar" />
+
+<property name="distrib"  value="${basedir}/distrib" />
+<property name="Dlib"     value="${distrib}/lib" />
+<property name="Dsrc"     value="${distrib}/src" />
+<property name="Ddoc"     value="${distrib}/doc" />
+<property name="Ddoc.api" value="${Ddoc}/api" />
+
+<property name="pbc.libJar"  value="${distrib}/${pbc.libName}-${pbc.LibVersion}.jar"/>
+
+<path id="class.path">
+    <pathelement path="${classpath}"/>
+    <fileset dir="${jar}">
+      <include name="**/*.jar"/>
+    </fileset>
+    <pathelement location="${Dlib}"/>
+</path>
+
+<!-- ============================================================= -->
+<target name="help">
+  <echo>Ant task to handle BLAST Filter Tool project.</echo>
+  <echo/>
+  <echo>      compile: compile the code.</echo>
+  <echo>         jdoc: compile the Javadoc.</echo>
+  <echo>  makedistrib: compile and make JAR of the Filter system.</echo>
+</target>
+
+<!-- ============================================================= -->
+<target name="prepare">
+    <delete dir="${distrib}"/>
+    <mkdir  dir="${Dlib}"/>
+    <mkdir  dir="${Dsrc}"/>
+    <mkdir  dir="${Ddoc.api}"/>
+</target>
+
+<!-- ============================================================= -->
+<target name="compile" depends="prepare">
+   <copy todir="${Dsrc}">
+      <fileset dir="${src}">
+         <include name="bzh/plealog/bioinfo/**"/>
+      </fileset>
+    </copy>
+   <javac srcdir="${Dsrc}"
+          destdir="${Dlib}"
+	        classpathref="class.path"
+          debug="${compile.debug}"
+          optimize="${compile.optimize}"
+          >
+   </javac>
+  <copy todir="${Dlib}/bzh/plealog/bioinfo/">
+    <fileset dir="${Dsrc}/bzh/plealog/bioinfo/">
+        <include name="**/*properties"/>
+    </fileset>
+  </copy>
+</target>
+
+<!-- ============================================================= -->
+<target name="makedistrib" depends="compile" >
+    <jar destfile="${pbc.libJar}">
+      <fileset dir="${Dlib}">
+        <include name="bzh/plealog/bioinfo/**"/>
+      </fileset>
+      <restrict>
+         <name name="**/*"/>
+         <archives>
+           <zips>
+             <fileset dir="jar" includes="**/*.jar"/>
+           </zips>
+         </archives>
+      </restrict>
+      <manifest>
+        <attribute name="Main-Class" value="bzh.plealog.bioinfo.bft.Main"/>
+        <attribute name="Built-By" value="Patrick G. Durand"/>
+        <attribute name="Title" value="${prg.name}"/>
+        <attribute name="Version" value="${prg.version}"/>
+      </manifest>
+    </jar>
+	  <jar destfile="${pbc.libJar}" update="true">
+	    <zipfileset dir="${basedir}" includes="*.txt"/>
+	  </jar>
+</target>
+
+<!-- =================================================================== -->
+<!-- target to create JavaDoc                                     -->
+<!-- =================================================================== -->
+<target name="jdoc">
+  <delete dir="${Ddoc.api}" />
+  <mkdir dir="${Ddoc.api}" />
+  <javadoc
+    packagenames="bzh.plealog.bioinfo.*"
+    excludepackagenames="test"
+    Overview="${src}/overview.html" 
+    Private="false" 
+    Splitindex="true" 
+    Windowtitle="Blast Filter Tool API" 
+    author="true" 
+    classpathref="class.path" 
+    destdir="${Ddoc.api}" 
+    maxmemory="256M" 
+    sourcepath="${src}" 
+    version="true">
+    <bottom>
+      <![CDATA[(c) Patrick G. Durand - 2004-2016]]>
+    </bottom>
+    <header>
+      <![CDATA[Blast Filter Tool API]]></header>
+    <link href="https://docs.oracle.com/javase/6/docs/api/"/>
+    <!-- arg value="-Xdoclint:reference"/ -->
+  </javadoc>
+</target>
+	
+
+</project>

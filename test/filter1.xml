@@ -1,0 +1,12 @@
+<BFilter>
+  <xmlVersion>1</xmlVersion>
+  <name>EvalFilter 1</name>
+  <description>select by evalue</description>
+  <rules>
+    <BRule>
+      <accessor>HSP E-Value</accessor>
+      <operator>&lt;</operator>
+      <value class="double">0.0010</value>
+    </BRule>
+  </rules>
+</BFilter>
