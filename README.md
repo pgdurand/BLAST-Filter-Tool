@@ -183,7 +183,7 @@ BFT depends on several thrid-party libraries as stated in the NOTICE.txt file pr
 
 ##A short story of BLAST Filter Tool (2006-today)
 
-BLAST Filter Tool was started on october 2006. It is a concrete implementation of the Hyper-Graph Explorer (HGE) data modeling and querying system applied on sequence data (DNA, RNA and proteins). For more information on HGE, check [this project]().
+BLAST Filter Tool was started on october 2006. It is a concrete implementation of the Hyper-Graph Explorer (HGE) data modeling and querying system applied on sequence data (DNA, RNA and proteins). For more information on HGE, check [this project](https://github.com/pgdurand/Hyper-Graph-Explorer).
 
 From 2007 to 2015, it was licensed to the company Korilog to become the core of the data modeling and querying system of two other softwares I designed: [KoriBlast and ngKLAST](http://plealog.com/korilog/product-sheets/ngKLAST.pdf).
 
