@@ -11,6 +11,8 @@ BLAST Filter Tool (BFT) contains:
   * the filtering engine to be used as a command-line tool
   * a graphical filter editor to create filters in a very straightforward way without the need to use any obscure query language
 
+![FilterManager](doc/Blast-Filter-Manager.png)
+
 While first designed to handle NCBI BLAST results, BFT is also capable of working on [INRIA PLAST](http://plast.inria.fr/) results or any other software packages capable of producing XML data files conform to [NCBI_BlastOutput.dtd](http://www.ncbi.nlm.nih.gov/data_specs/dtd/NCBI_BlastOutput.dtd).
 
 ##Requirements
